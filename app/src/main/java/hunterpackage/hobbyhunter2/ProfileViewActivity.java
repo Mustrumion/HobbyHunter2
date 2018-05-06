@@ -14,6 +14,7 @@ public class ProfileViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_view);
         configureMap();
+        configureViewOthersButton();
     }
 
 
@@ -24,6 +25,16 @@ public class ProfileViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileViewActivity.this, MapActivity.class));
+            }
+        });
+    }
+    private void configureViewOthersButton(){
+        Button othersView = (Button) findViewById(R.id.profileOthers);
+        othersView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileViewActivity.this, ProfileOthersActivity.class));
             }
         });
     }

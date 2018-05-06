@@ -121,7 +121,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 mMap.addMarker(new MarkerOptions().position(point));
                 mMap.addCircle(new CircleOptions()
                         .center(point)
-                        .radius(5000));
+                        .radius(5000).fillColor(Color.parseColor("#22DCDCDC")));
             }
         });
         Location location = getLastLocation();

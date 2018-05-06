@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileOthersActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+                <ImageView
+                    android:id="@+id/profilePic"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile_mock" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/profilePic"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="JohnnyTheJohnniest"
+                    android:textAlignment="textEnd"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:columnCount="2"
+                android:rowCount="4">
+
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Gender" />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Male" />
+
+
+
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Interests" />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:layout_marginLeft="5dp"
+                    android:text="video games" />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Name" />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:layout_marginLeft="5dp"
+                    android:text="John" />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Description" />
+
+                <TextView
+                    android:width="100dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:layout_marginLeft="5dp"
+                    android:breakStrategy="simple"
+                    android:maxLines="10"
+                    android:minLines="2"
+                    android:text="I'm new to tabletop community. I would like to find someone to play with." />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Availability"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:id="@+id/miniMap"
+                    android:layout_height="200dp"
+                    android:layout_width="200dp"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:layout_margin="5dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/map_radius" />
+
+
+            </GridLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

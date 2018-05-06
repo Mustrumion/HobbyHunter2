@@ -36,6 +36,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfileViewActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_profile" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -52,7 +53,9 @@
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map" />
-        <activity android:name=".MyHobbies"></activity>
+        <activity android:name=".MyHobbies" />
+        <activity android:name=".ProfileOthersActivity"
+            android:label="@string/title_activity_profile_others"></activity>
     </application>
 
 </manifest>

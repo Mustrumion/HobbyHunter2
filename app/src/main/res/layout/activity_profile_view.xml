@@ -35,7 +35,7 @@
                     android:src="@drawable/profile_mock" />
 
                 <Button
-                    android:id="@+id/profileView"
+                    android:id="@+id/profileOthers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/profilePic"
