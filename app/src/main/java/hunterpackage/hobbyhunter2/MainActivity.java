@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         configureLogOutButton();
+        configureMyProfileButton();
     }
 
     private void configureLogOutButton(){
@@ -38,6 +39,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
+    }
+    private void configureMyProfileButton(){
+        Button logOutButton = (Button) findViewById(R.id.myProfile);
+        logOutButton.setOnClickListener(new OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ProfileViewActivity.class));
             }
         });
     }
