@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         configureLogOutButton();
         configureMyProfileButton();
+        configureMyHobbiesButton();
     }
 
     private void configureLogOutButton(){
@@ -49,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ProfileViewActivity.class));
+            }
+        });
+    }
+    private void configureMyHobbiesButton(){
+        Button myHobbiesButton = (Button) findViewById(R.id.myHobbies);
+        myHobbiesButton.setOnClickListener(new OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MyHobbies.class));
             }
         });
     }
