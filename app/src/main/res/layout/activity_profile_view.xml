@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:layout_marginRight="5dp"
-                        android:text="JonnyJohnTheJonniest"
+                        android:text="JohnnyTheJohnniest"
                         android:textAlignment="textEnd"
                         android:textSize="20dp" />
                 </LinearLayout>
@@ -71,13 +71,14 @@
                     android:layout_columnWeight="2"
                     android:layout_gravity="fill"
                     android:layout_marginLeft="5dp"
-                    android:text="About yourself" />
+                    android:text="About yourself:" />
 
                 <TextView
                     android:layout_columnWeight="1"
-                    android:layout_gravity="fill"
+                    android:layout_gravity="center"
                     android:layout_marginRight="5dp"
-                    android:text="Visible\nto others" />
+                    android:text="Visible\nto others"
+                    android:textAlignment="center"/>
 
                 <TextView
                     android:layout_columnWeight="1"
@@ -152,6 +153,41 @@
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     android:checked="true" />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Name" />
+
+                <EditText
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:layout_marginLeft="5dp"
+                    android:inputType="text"
+                    android:text="John" />
+
+                <CheckBox
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:checked="true" />
+
+                <TextView
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="Surname" />
+
+                <EditText
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="fill"
+                    android:layout_marginLeft="5dp"
+                    android:inputType="text"
+                    android:text="Johner" />
+
+                <CheckBox
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center" />
 
                 <TextView
                     android:layout_columnWeight="1"
