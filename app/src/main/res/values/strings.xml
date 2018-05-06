@@ -17,4 +17,7 @@
     <string name="title_activity_profile">Edit profile</string>
     <string name="title_activity_login">Log or sign in</string>
     <string name="title_activity_map">Choose your point</string>
+    <string name="title_location_permission">Permission request.</string>
+    <string name="text_location_permission">The application may require your permission to access location.</string>
+    <string name="ok">OK</string>
 </resources>
