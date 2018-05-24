@@ -10,4 +10,6 @@ public interface ApiService {
 
     @POST("/users")
     Call<User> saveUser(@Body User user);
+    @POST("/login")
+    Call<Token> logIn(@Body User user);
 }

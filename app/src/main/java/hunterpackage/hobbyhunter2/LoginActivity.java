@@ -34,6 +34,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import hunterpackage.hobbyhunter2.RestUtils.ApiService;
+import hunterpackage.hobbyhunter2.RestUtils.ApiUtils;
+import hunterpackage.hobbyhunter2.RestUtils.Token;
+import hunterpackage.hobbyhunter2.RestUtils.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -56,19 +64,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private ApiService mAPIService;
     private LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mAPIService = ApiUtils.getAPIService();
         layout = (LinearLayout)findViewById(R.id.login_layout);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -180,10 +190,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -221,8 +227,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            User user = new User();
+            user.setEmail(email);
+            user.setPassword(password);
+            sendUser(user);
         }
     }
 
@@ -326,61 +334,36 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
-        private final String mPassword;
 
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+    public void sendUser(User user) {
+        mAPIService.logIn(user).enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+                showProgress(false);
+                if(response.isSuccessful()) {
+                    Snackbar.make(layout, "Registration successful.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    newIntent.putExtra("email", response.body().getUser().getEmail());
+                    newIntent.putExtra("password", response.body().getUser().getPassword());
+                    newIntent.putExtra("id", response.body().getUser().getID());
+                    newIntent.putExtra("token", response.body().getSessionID());
+                    startActivity(newIntent);
+                }
+                else{
+                    Snackbar.make(layout, "Incorrect login or password.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
             }
 
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+            @Override
+            public void onFailure(Call<Token> call, Throwable t) {
+                showProgress(false);
+                Snackbar.make(layout, "Login request failed, is server online?", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
+        });
     }
 }
 
