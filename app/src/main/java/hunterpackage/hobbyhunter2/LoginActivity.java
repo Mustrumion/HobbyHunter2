@@ -28,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -62,11 +63,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        layout = (LinearLayout)findViewById(R.id.login_layout);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -94,6 +97,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        Bundle b = getIntent().getExtras();
+        if(b == null){
+            return;
+        }
+        String email = b.getString("email");
+        if (email != null){
+            mEmailView.setText(email);
+        }
+        String password = b.getString("password");
+        if (email != null){
+            mPasswordView.setText(password);
+        }
+        if(email != null && password != null) {
+            Snackbar.make(layout, "Registration successful.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 
     private void configureRegisterButton(){
@@ -102,7 +122,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                Intent newIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                newIntent.putExtra("email", mEmailView.getText().toString());
+                newIntent.putExtra("password", mPasswordView.getText().toString());
+                startActivity(newIntent);
             }
         });
     }

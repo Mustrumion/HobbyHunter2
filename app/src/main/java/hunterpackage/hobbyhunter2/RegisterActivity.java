@@ -109,6 +109,18 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        Bundle b = getIntent().getExtras();
+        if(b == null){
+            return;
+        }
+        String email = b.getString("email");
+        if (email != null){
+            mEmailView.setText(email);
+        }
+        String password = b.getString("password");
+        if (email != null){
+            mPasswordView.setText(password);
+        }
     }
 
     private void populateAutoComplete() {
@@ -182,7 +194,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         }
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -321,7 +333,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                 if(response.isSuccessful()) {
                     Snackbar.make(layout, "Registration successful.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    Intent newIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    newIntent.putExtra("email", user.getEmail());
+                    newIntent.putExtra("password", user.getPassword());
+                    newIntent.putExtra("id", user.getID());
+                    startActivity(newIntent);
                 }
                 else{
                     Snackbar.make(layout, "User with that address already exists, try something more creative.", Snackbar.LENGTH_LONG)
