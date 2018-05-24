@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,8 +29,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import hunterpackage.hobbyhunter2.RestUtils.ApiService;
+import hunterpackage.hobbyhunter2.RestUtils.ApiUtils;
+import hunterpackage.hobbyhunter2.RestUtils.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -58,8 +67,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private EditText mPasswordRepeatView;
     private View mProgressView;
     private View mLoginFormView;
+    private ApiService mAPIService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +80,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
+        mAPIService = ApiUtils.getAPIService();
+
         mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordRepeatView = (EditText) findViewById(R.id.password_rep);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -154,9 +168,17 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String passwordRepeat = mPasswordRepeatView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (!passwordRepeat.equals(password)) {
+            mPasswordView.setError(getString(R.string.error_password_do_not_match));
+            focusView = mPasswordView;
+            cancel = true;
+        }
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
@@ -288,6 +310,31 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         mEmailView.setAdapter(adapter);
     }
 
+    public void sendUser(User user) {
+        mAPIService.saveUser(user).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                if(response.isSuccessful()) {
+                    showResponse(response.body().toString());
+                    Log.i("asd", "post submitted to API." + response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e("asd", "Unable to submit post to API.");
+            }
+        });
+    }
+
+    public void showResponse(String response) {
+        /*if(mResponseTv.getVisibility() == View.GONE) {
+            mResponseTv.setVisibility(View.VISIBLE);
+        }
+        mResponseTv.setText(response);*/
+    }
+
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -306,12 +353,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+            User user = new User();
+            user.setEmail(mEmail);
+            user.setPassword(mPassword);
+            sendUser(user);
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
