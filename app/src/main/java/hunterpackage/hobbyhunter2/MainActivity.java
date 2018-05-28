@@ -8,9 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
+
+import hunterpackage.hobbyhunter2.RestUtils.Token;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView mAccount;
+    Token tokenInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,17 @@ public class MainActivity extends AppCompatActivity {
         configureLogOutButton();
         configureMyProfileButton();
         configureMyHobbiesButton();
+
+        mAccount = (TextView) findViewById(R.id.accountName);
+
+        Bundle b = getIntent().getExtras();
+        if(b == null){
+            return;
+        }
+        tokenInfo = (Token)(b.getSerializable("tokenInfo"));
+        if (tokenInfo != null){
+            mAccount.setText("Logged as:\n" + tokenInfo.getUser().getEmail());
+        }
     }
 
     private void configureLogOutButton(){

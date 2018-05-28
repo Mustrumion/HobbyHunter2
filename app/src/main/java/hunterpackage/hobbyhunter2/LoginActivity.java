@@ -345,10 +345,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Snackbar.make(layout, "Registration successful.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     Intent newIntent = new Intent(LoginActivity.this, MainActivity.class);
-                    newIntent.putExtra("email", response.body().getUser().getEmail());
-                    newIntent.putExtra("password", response.body().getUser().getPassword());
-                    newIntent.putExtra("id", response.body().getUser().getID());
-                    newIntent.putExtra("token", response.body().getSessionID());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("tokenInfo", response.body());
+                    newIntent.putExtras(bundle);
                     startActivity(newIntent);
                 }
                 else{

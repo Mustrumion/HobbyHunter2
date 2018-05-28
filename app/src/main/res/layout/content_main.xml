@@ -30,6 +30,7 @@
                 android:layout_toRightOf="@+id/profilePic"
                 android:text="Logout"/>
             <TextView
+                android:id="@+id/accountName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
