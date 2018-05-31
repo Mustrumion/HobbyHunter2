@@ -11,16 +11,21 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import hunterpackage.hobbyhunter2.RestUtils.ApiService;
+import hunterpackage.hobbyhunter2.RestUtils.ApiUtils;
+
 
 public class MyHobbies extends Activity {
 
     private ListView list ;
     private ArrayAdapter<String> adapter ;
+    private ApiService mAPIService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_hobbies);
+        mAPIService = ApiUtils.getAPIService();
 
         list = (ListView) findViewById(R.id.hobbyListView);
 
