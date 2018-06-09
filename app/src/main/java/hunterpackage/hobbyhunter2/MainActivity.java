@@ -10,23 +10,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import hunterpackage.hobbyhunter2.RestUtils.Token;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView mAccount;
-    Token tokenInfo;
+    private TextView mAccount;
+    private Token tokenInfo;
+    private LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         configureMyProfileButton();
         configureMyHobbiesButton();
 
-        mAccount = (TextView) findViewById(R.id.accountName);
+        mAccount = findViewById(R.id.accountName);
 
         Bundle b = getIntent().getExtras();
         if(b == null){
@@ -67,7 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ProfileViewActivity.class));
+                Intent newIntent = new Intent(MainActivity.this, ProfileViewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("tokenInfo", tokenInfo);
+                newIntent.putExtras(bundle);
+                startActivity(newIntent);
             }
         });
     }

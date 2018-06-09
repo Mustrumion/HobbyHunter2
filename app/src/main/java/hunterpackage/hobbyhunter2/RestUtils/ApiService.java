@@ -6,6 +6,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -14,7 +15,7 @@ public interface ApiService {
     @POST("/login")
     Call<Token> logIn(@Body User user);
     @GET("/users/{id}/profile")
-    Call<Profile> getProfile();
+    Call<Profile> getProfile(@Path("id") int id);
     @POST("/users/{id}/profile")
-    Call<Profile> postProfile(@Body Profile profile);
+    Call<Profile> postProfile(@Path("id") int id, @Body Profile profile);
 }
