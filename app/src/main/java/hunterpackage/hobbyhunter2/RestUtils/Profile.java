@@ -25,7 +25,7 @@ public class Profile
     private Boolean surnameVisible;
     @SerializedName("gender")
     @Expose
-    private Object gender;
+    private String gender;
     @SerializedName("genderVisible")
     @Expose
     private Boolean genderVisible;
@@ -34,13 +34,13 @@ public class Profile
     private String nick;
     @SerializedName("interests")
     @Expose
-    private Object interests;
+    private String interests;
     @SerializedName("interestsVisible")
     @Expose
     private Boolean interestsVisible;
     @SerializedName("description")
     @Expose
-    private Object description;
+    private String description;
     @SerializedName("descriptionVisible")
     @Expose
     private Boolean descriptionVisible;
@@ -99,11 +99,11 @@ public class Profile
         this.surnameVisible = surnameVisible;
     }
 
-    public Object getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Object gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -123,11 +123,11 @@ public class Profile
         this.nick = nick;
     }
 
-    public Object getInterests() {
+    public String getInterests() {
         return interests;
     }
 
-    public void setInterests(Object interests) {
+    public void setInterests(String interests) {
         this.interests = interests;
     }
 
@@ -139,11 +139,11 @@ public class Profile
         this.interestsVisible = interestsVisible;
     }
 
-    public Object getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Object description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -169,6 +169,25 @@ public class Profile
 
     public void setAgeVisible(Boolean ageVisible) {
         this.ageVisible = ageVisible;
+    }
+
+
+    public void copyDataFrom(Profile other){
+        setAgeVisible(other.getAgeVisible());
+        setBorn(other.getBorn());
+        setDescription(other.getDescription());
+        setDescriptionVisible(other.getDescriptionVisible());
+        setGender(other.getGender());
+        setGenderVisible(other.getGenderVisible());
+        setID(other.getID());
+        setInterests(other.getInterests());
+        setInterestsVisible(other.getInterestsVisible());
+        setName(other.getName());
+        setNameVisible(other.getNameVisible());
+        setNick(other.getNick());
+        setSurname(other.getSurname());
+        setSurnameVisible(other.getSurnameVisible());
+        setUserID(other.getUserID());
     }
 
 }

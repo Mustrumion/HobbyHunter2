@@ -178,6 +178,7 @@
                     android:text="Name" />
 
                 <EditText
+                    android:id="@+id/name"
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill"
                     android:layout_marginLeft="5dp"
@@ -185,6 +186,7 @@
                     android:text="John" />
 
                 <CheckBox
+                    android:id="@+id/nameVisible"
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     android:checked="true" />
@@ -196,6 +198,7 @@
                     android:text="Surname" />
 
                 <EditText
+                    android:id="@+id/surname"
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill"
                     android:layout_marginLeft="5dp"
@@ -203,6 +206,7 @@
                     android:text="Johner" />
 
                 <CheckBox
+                    android:id="@+id/surnameVisible"
                     android:layout_columnWeight="1"
                     android:layout_gravity="center" />
 
@@ -213,6 +217,7 @@
                     android:text="Description" />
 
                 <EditText
+                    android:id="@+id/description"
                     android:width="100dp"
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill"
@@ -224,6 +229,7 @@
                     android:text="I'm new to tabletop community. I would like to find someon nto play with." />
 
                 <CheckBox
+                    android:id="@+id/descriptionVisible"
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     android:checked="true" />
