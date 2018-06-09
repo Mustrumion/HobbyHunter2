@@ -7,7 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import hunterpackage.hobbyhunter2.RestUtils.ApiService;
+
 public class ProfileViewActivity extends AppCompatActivity {
+
+    private ApiService mAPIService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
