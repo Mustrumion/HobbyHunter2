@@ -14,8 +14,14 @@ public interface ApiService {
     Call<User> saveUser(@Body User user);
     @POST("/login")
     Call<Token> logIn(@Body User user);
+
     @GET("/users/{id}/profile")
     Call<Profile> getProfile(@Path("id") int id);
     @POST("/users/{id}/profile")
     Call<Profile> postProfile(@Path("id") int id, @Body Profile profile);
+
+    @GET("/users/{id}/photo")
+    Call<Photo> getPhoto(@Path("id") int id);
+    @POST("/users/{id}/photo")
+    Call<Photo> postPhoto(@Path("id") int id, @Body Photo photo);
 }
