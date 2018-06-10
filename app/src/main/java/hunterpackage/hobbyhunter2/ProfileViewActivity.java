@@ -247,7 +247,7 @@ public class ProfileViewActivity extends AppCompatActivity implements IPickResul
                     mProfilePic.setImageBitmap(decodedByte);
                 }
                 else{
-                    Snackbar.make(layout, "Not authorized.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(layout, "No photo.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
@@ -268,14 +268,14 @@ public class ProfileViewActivity extends AppCompatActivity implements IPickResul
                 if(response.isSuccessful()) {
                 }
                 else{
-                    Snackbar.make(layout, "Not authorized to save this profile.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(layout, "No photo.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Photo> call, Throwable t) {
-                Snackbar.make(layout, "Pulling profile data from server failed, are you online?", Snackbar.LENGTH_LONG)
+                Snackbar.make(layout, "Posting photo failed, are you online?", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

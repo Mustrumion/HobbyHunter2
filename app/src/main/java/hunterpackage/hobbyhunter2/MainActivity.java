@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mAccount;
     private Token tokenInfo;
-    private LinearLayout layout;
+    private CoordinatorLayout layout;
     private ImageView mProfilePic;
     private ApiService mAPIService;
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        layout = findViewById(R.id.main_layout);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ChatActivity.class));
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
             }
         });
     }
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     mProfilePic.setImageBitmap(decodedByte);
                 }
                 else{
-                    Snackbar.make(layout, "Not authorized.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(layout, "No photo", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }

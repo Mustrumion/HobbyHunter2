@@ -29,7 +29,7 @@ public class MyHobbies extends Activity {
 
         list = (ListView) findViewById(R.id.hobbyListView);
 
-        String hobbies[] = {"Board Games", "Role play games", "Decoupage", "Skydiving"};
+        String hobbies[] = {"Dungeons and Dragons", "Munchkin", "Chess", "Warhammer 40000"};
 
         ArrayList<String> hobbyL = new ArrayList<String>();
         hobbyL.addAll( Arrays.asList(hobbies) );

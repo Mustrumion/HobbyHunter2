@@ -99,7 +99,7 @@ public class ProfileOthersActivity extends AppCompatActivity {
                     setProfileForm(response.body());
                 }
                 else{
-                    Snackbar.make(layout, "Not authorized.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(layout, "No photo.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
