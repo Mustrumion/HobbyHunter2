@@ -99,7 +99,7 @@ public class ProfileOthersActivity extends AppCompatActivity {
                     setProfileForm(response.body());
                 }
                 else{
-                    Snackbar.make(layout, "No photo.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(layout, "No profile data.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
@@ -122,14 +122,14 @@ public class ProfileOthersActivity extends AppCompatActivity {
                     mProfilePic.setImageBitmap(decodedByte);
                 }
                 else{
-                    Snackbar.make(layout, "Not authorized.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(layout, "No photo.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Photo> call, Throwable t) {
-                Snackbar.make(layout, "Pulling profile data from server failed, are you online?", Snackbar.LENGTH_LONG)
+                Snackbar.make(layout, "Pulling picture from server failed, are you online?", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
