@@ -23,6 +23,7 @@ import com.vansuita.pickimage.listeners.IPickResult;
 
 import java.io.ByteArrayOutputStream;
 
+import hunterpackage.hobbyhunter2.Helpers.BitmapHelper;
 import hunterpackage.hobbyhunter2.RestUtils.ApiService;
 import hunterpackage.hobbyhunter2.RestUtils.ApiUtils;
 import hunterpackage.hobbyhunter2.RestUtils.Photo;
@@ -31,6 +32,8 @@ import hunterpackage.hobbyhunter2.RestUtils.Token;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.lang.Math.min;
 
 public class ProfileViewActivity extends AppCompatActivity implements IPickResult {
 
@@ -208,18 +211,15 @@ public class ProfileViewActivity extends AppCompatActivity implements IPickResul
     public void onPickResult(PickResult r) {
 
         if (r.getError() == null) {
-            //If you want the Uri.
-            //Mandatory to refresh image from Uri.
-            //getImageView().setImageURI(null);
-
-            //Setting the real returned image.
-            //getImageView().setImageURI(r.getUri());
-
-            //If you want the Bitmap.
-            mProfilePic.setImageBitmap(r.getBitmap());
+            Bitmap bitmap = r.getBitmap();
+            mProfilePic.setImageBitmap(bitmap);
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            r.getBitmap().compress(Bitmap.CompressFormat.PNG, 5, byteArrayOutputStream);
+            float scale = min(1000.0f/bitmap.getWidth(), 1000.0f/bitmap.getHeight());
+            if(scale < 1){
+                bitmap = bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*scale), (int)(bitmap.getHeight()*scale), false);
+            }
+            bitmap.compress(Bitmap.CompressFormat.PNG, 5, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream .toByteArray();
 
             Photo photo = new Photo();

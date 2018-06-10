@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/profile_pic"
-                android:text="Logged as\nJonnyJohnTheJonniest"
+                android:text="Logged as\nexample@mail.com"
                 android:textSize="20dp"
                 android:textAlignment="textEnd"
                 android:layout_marginRight="5dp"
