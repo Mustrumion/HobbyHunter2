@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         configureLogOutButton();
         configureMyProfileButton();
         configureMyHobbiesButton();
+        configureSearchButton();
 
         mAccount = findViewById(R.id.accountName);
         mProfilePic = findViewById(R.id.profile_pic);
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configureLogOutButton(){
-        Button logOutButton = (Button) findViewById(R.id.logOut);
+        Button logOutButton = findViewById(R.id.logOut);
         logOutButton.setOnClickListener(new OnClickListener(){
 
             @Override
@@ -82,8 +83,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void configureSearchButton(){
+        Button searchButton = findViewById(R.id.search);
+        searchButton.setOnClickListener(new OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ChatActivity.class));
+            }
+        });
+    }
+
+
     private void configureMyProfileButton(){
-        Button logOutButton = (Button) findViewById(R.id.myProfile);
+        Button logOutButton = findViewById(R.id.myProfile);
         logOutButton.setOnClickListener(new OnClickListener(){
 
             @Override
@@ -97,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void configureMyHobbiesButton(){
-        Button myHobbiesButton = (Button) findViewById(R.id.myHobbies);
+        Button myHobbiesButton = findViewById(R.id.myHobbies);
         myHobbiesButton.setOnClickListener(new OnClickListener(){
 
             @Override
