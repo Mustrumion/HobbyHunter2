@@ -21,6 +21,8 @@ import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.listeners.IPickResult;
 
+import java.io.ByteArrayOutputStream;
+
 import hunterpackage.hobbyhunter2.RestUtils.ApiService;
 import hunterpackage.hobbyhunter2.RestUtils.ApiUtils;
 import hunterpackage.hobbyhunter2.RestUtils.Photo;
@@ -181,7 +183,7 @@ public class ProfileViewActivity extends AppCompatActivity implements IPickResul
         });
     }
 
-    public void postProfile(int id, final Profile profile) {
+    public void postProfile(int id, Profile profile) {
         mAPIService.postProfile(id, profile).enqueue(new Callback<Profile>() {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
@@ -216,6 +218,15 @@ public class ProfileViewActivity extends AppCompatActivity implements IPickResul
             //If you want the Bitmap.
             mProfilePic.setImageBitmap(r.getBitmap());
 
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            r.getBitmap().compress(Bitmap.CompressFormat.PNG, 5, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream .toByteArray();
+
+            Photo photo = new Photo();
+            photo.setUserID(tokenInfo.getUser().getID());
+            photo.setPhotoBase64(Base64.encodeToString(byteArray, Base64.DEFAULT));
+            postPhoto(tokenInfo.getUser().getID(), photo);
+
             //Image path
             //r.getPath();
         } else {
@@ -237,6 +248,27 @@ public class ProfileViewActivity extends AppCompatActivity implements IPickResul
                 }
                 else{
                     Snackbar.make(layout, "Not authorized.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Photo> call, Throwable t) {
+                Snackbar.make(layout, "Pulling profile data from server failed, are you online?", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+
+    public void postPhoto(int id, Photo photo) {
+        mAPIService.postPhoto(id, photo).enqueue(new Callback<Photo>() {
+            @Override
+            public void onResponse(Call<Photo> call, Response<Photo> response) {
+                if(response.isSuccessful()) {
+                }
+                else{
+                    Snackbar.make(layout, "Not authorized to save this profile.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
